@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>To Do List</title>
+        <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+        <link rel="stylesheet" href="styles/todolist.css" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <button id="showEditor" type="button" name="button">Click to Edit List<img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/edit_property.png" alt="" /></button>
+                <input type="text" name="name" value="" placeholder="Enter new item..." autofocus="autofocus" class="hide">
+            </div><!--end of div#header-->
+            <div>
+                <ul id="myList">
+
+                </ul>
+            </div><!--end of div#listDiv-->
+        </div><!--end of div#container-->
+
+
+
+        <script>
+        $('#showEditor').on('click',function () {
+            $('input').toggleClass('hide');
+        })
+
+        $('input').keypress(function (event) {
+            if (event.which===13) {
+                edit();
+            }
+        })
+
+        var current;
+        function edit() {
+            current = $('input')[0].value;
+            var li = $('<li><img src="images/delete.png" class="hide trash" />'+current+'</li>')
+            $('#myList').append(li)
+            $('input')[0].value="";
+
+            li.click(function () {
+                $(this).toggleClass("check");
+            })
+
+            li.mouseover(function () {
+                $($(this).children()[0]).removeClass('hide')
+            })
+
+            li.mouseleave(function () {
+                $($(this).children()[0]).addClass('hide')
+            })
+
+            $(li.children()[0]).click(function () {
+                $(this).parent()[0].remove();
+            })
+        }
+
+        </script>
+    </body>
+</html>
